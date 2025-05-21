@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Kontak Kami - Toko Cincin Elegan</title>
+    <link rel="stylesheet" href="Style1.css">
+</head>
+<body>
+    <header>
+        <h1>Kontak Kami</h1>
+        <nav>
+            <a href="Index.html">Beranda</a>
+            <a href="About.html">Tentang Kami</a>
+            <a href="Contact.html">Kontak</a>
+            <a href="Shop.html">Toko</a>
+            <a href="Checkout.html">Checkout</a>
+            <a href="Invoice.html">Invoice</a>
+            <a href="Login.html">Login</a>
+            <a href="Register.html">Daftar</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Hubungi Kami</h2>
+            <p>Email: info@tokocincinelegan.com</p>
+            <p>Telepon: +62 857-3032-5655</p>
+            <p>Alamat: Jl. Permata Indah Seoul Bussan No.10, Seoul, Korea Selatan</p>
+
+            <!-- FORM KONTAK -->
+            <form id="contactForm">
+                <label for="nama">Nama:</label><br>
+                <input type="text" id="nama" name="nama" required><br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+
+                <label for="pesan">Pesan:</label><br>
+                <textarea id="pesan" name="pesan" required></textarea><br><br>
+
+                <button type="submit">Kirim Pesan</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Toko Cincin Elegan</p>
+    </footer>
+
+    <!-- Optional JS (menampilkan alert saat submit) -->
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Pesan Anda telah dikirim! Kami akan segera menghubungi Anda.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

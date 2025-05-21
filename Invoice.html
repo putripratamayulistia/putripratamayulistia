@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Invoice - Toko Cincin Elegan</title>
+  <link rel="stylesheet" href="Style1.css">
+</head>
+<body>
+
+<header>
+  <h1>Invoice Pembelian</h1>
+  <nav>
+    <a href="Index.html">Beranda</a>
+    <a href="About.html">Tentang Kami</a>
+    <a href="Contact.html">Kontak</a>
+    <a href="Shop.html">Toko</a>
+    <a href="Checkout.html">Checkout</a>
+    <a href="Invoice.html">Invoice</a>
+    <a href="Login.html">Login</a>
+    <a href="Register.html">Daftar</a>
+  </nav>
+</header>
+
+<main class="content">
+  <section id="invoice-section">
+    <h2>Detail Invoice</h2>
+    <p><strong>No. Invoice:</strong> <span id="invoice-number"></span></p>
+    <p><strong>Tanggal Pemesanan:</strong> <span id="order-date"></span></p>
+    <p><strong>No. Resi Pengiriman:</strong> <span id="tracking-number"></span></p>
+
+    <h3>Informasi Pembeli</h3>
+    <p><strong>Nama:</strong> <span id="customer-name"></span></p>
+    <p><strong>Alamat:</strong> <span id="customer-address"></span></p>
+    <p><strong>Nomor HP:</strong> <span id="customer-phone"></span></p>
+    <p><strong>Metode Pembayaran:</strong> <span id="payment-method"></span></p>
+
+    <h3>Barang yang Dibeli</h3>
+    <div id="invoice-items"></div>
+
+    <h3>Total Pembayaran</h3>
+    <p><strong>Total:</strong> Rp. <span id="total-price">0</span></p>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 Toko Cincin Elegan</p>
+</footer>
+
+<script>
+  function loadInvoice() {
+    const data = JSON.parse(localStorage.getItem('Invoice'));
+    if (!data) {
+      document.getElementById('invoice-section').innerHTML = '<p>Data invoice tidak ditemukan.</p>';
+      return;
+    }
+
+    document.getElementById('invoice-number').textContent = data.invoiceNumber;
+    document.getElementById('order-date').textContent = data.orderDate;
+    document.getElementById('tracking-number').textContent = data.trackingNumber;
+    document.getElementById('customer-name').textContent = data.name;
+    document.getElementById('customer-address').textContent = data.address;
+    document.getElementById('customer-phone').textContent = data.phone;
+    document.getElementById('payment-method').textContent = data.paymentMethod;
+
+    let total = 0;
+    const itemsContainer = document.getElementById('invoice-items');
+    itemsContainer.innerHTML = '';
+
+    data.items.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.classList.add('invoice-item');
+      itemDiv.innerHTML = `
+        <p><strong>${item.name}</strong> - ${item.price}</p>
+      `;
+      itemsContainer.appendChild(itemDiv);
+
+      const price = parseInt(item.price.replace(/[^\d]/g, ''));
+      total += price;
+    });
+
+    document.getElementById('total-price').textContent = total.toLocaleString('id-ID');
+  }
+
+  window.onload = loadInvoice;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!-- Shop.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Belanja - Toko Cincin Elegan</title>
+  <link rel="stylesheet" href="shp.css">
+</head>
+<body>
+  <header>
+    <h1>Belanja</h1>
+    <nav>
+      <a href="Index.html">Beranda</a>
+      <a href="About.html">Tentang Kami</a>
+      <a href="Contact.html">Kontak</a>
+      <a href="Shop.html">Toko</a>
+      <a href="Cart.html">Keranjang</a>
+      <a href="Checkout.html">Checkout</a>
+      <a href="Invoice.html">Invoice</a>
+      <a href="Login.html">Login</a>
+      <a href="Register.html">Daftar</a>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Produk Kami</h2>
+
+      <div class="product">
+        <img src="ccnn.jpg" alt="Cincin Asli Berlian Mewah" width="200">
+        <p>Cincin Asli Berlian Mewah - Rp15.500.000</p>
+        <button onclick="tambahKeKeranjang('Cincin Asli Berlian Mewah', 15500000)">
+          Tambah ke Keranjang
+        </button>
+        <a href="Contact.html">Beli Sekarang</a>
+      </div>
+
+      <div class="product">
+        <img src="ccn2.jpg" alt="Cincin Emas Wanita" width="200">
+        <p>Cincin Emas Wanita - Rp1.500.000</p>
+        <button onclick="tambahKeKeranjang('Cincin Emas Wanita', 1500000)">
+          Tambah ke Keranjang
+        </button>
+        <a href="Contact.html">Beli Sekarang</a>
+      </div>
+
+      <div class="product">
+        <img src="ccnn2.jpg" alt="Cincin Couple Perak Pasangan" width="200">
+        <p>Cincin Couple Perak Pasangan - Rp2.000.000</p>
+        <button onclick="tambahKeKeranjang('Cincin Couple Perak Pasangan', 2000000)">
+          Tambah ke Keranjang
+        </button>
+        <a href="Contact.html">Beli Sekarang</a>
+      </div>
+
+      <div class="product">
+        <img src="cincinn.jpg" alt="Cincin Berlian Mewah Wanita" width="200">
+        <p>Cincin Berlian Mewah Wanita - Rp15.000.000</p>
+        <button onclick="tambahKeKeranjang('Cincin Berlian Mewah Wanita', 15000000)">
+          Tambah ke Keranjang
+        </button>
+        <a href="Contact.html">Beli Sekarang</a>
+      </div>
+
+      <div class="product">
+        <img src="ccn.jpg" alt="Cincin Emas Elegan Wanita" width="200">
+        <p>Cincin Emas Elegan Wanita - Rp1.200.000</p>
+        <button onclick="tambahKeKeranjang('Cincin Emas Elegan Wanita', 1200000)">
+          Tambah ke Keranjang
+        </button>
+        <a href="Contact.html">Beli Sekarang</a>
+      </div>
+
+      <div class="product">
+        <img src="cncpl.jpg" alt="Cincin Couple Lamaran Pernikahan" width="200">
+        <p>Cincin Couple Lamaran Pernikahan - Rp2.500.000</p>
+        <button onclick="tambahKeKeranjang('Cincin Couple Lamaran Pernikahan', 2500000)">
+          Tambah ke Keranjang
+        </button>
+        <a href="Contact.html">Beli Sekarang</a>
+      </div>
+
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Toko Cincin Elegan
+  </footer>
+
+  <script>
+    function tambahKeKeranjang(name, price) {
+      // Ambil array keranjang, atau inisialisasi jika belum ada
+      let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+      // Buat objek produk
+      const product = { name: name, price: price };
+      // Tambah dan simpan ulang
+      keranjang.push(product);
+      localStorage.setItem('keranjang', JSON.stringify(keranjang));
+      alert(name + " telah ditambahkan ke keranjang!");
+    }
+  </script>
+</body>
+</html>

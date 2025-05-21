@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout - Toko Cincin Elegan</title>
+  <link rel="stylesheet" href="Style1.css">
+</head>
+<body>
+
+<header>
+  <h1>Checkout</h1>
+  <nav>
+    <a href="Index.html">Beranda</a>
+    <a href="About.html">Tentang Kami</a>
+    <a href="Contact.html">Kontak</a>
+    <a href="Shop.html">Toko</a>
+    <a href="Checkout.html">Checkout</a>
+    <a href="Invoice.html">Invoice</a>
+    <a href="Login.html">Login</a>
+    <a href="Register.html">Daftar</a>
+  </nav>
+</header>
+
+<main class="content">
+  <h2>Belanja Anda</h2>
+
+  <div id="cart-items"></div>
+
+  <div class="total">
+     <label for="total">Total:</label>
+      <input type="text" id="total" placeholder="Masukkan total belanja" required>
+  </div>
+
+  <div class="customer-info">
+    <h3>Informasi Pembeli</h3>
+    <div class="form-group">
+      <label for="name">Nama Lengkap:</label>
+      <input type="text" id="name" placeholder="Masukkan nama lengkap" required>
+    </div>
+    <div class="form-group">
+      <label for="address">Alamat Lengkap:</label>
+      <input type="text" id="address" placeholder="Masukkan alamat lengkap" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Nomor HP:</label>
+      <input type="tel" id="phone" placeholder="Masukkan nomor HP" required>
+    </div>
+  </div>
+
+  <div class="payment-method">
+    <label for="payment-method">Pilih Metode Pembayaran:</label>
+    <select id="payment-method">
+      <option value="cod">COD (Cash On Delivery)</option>
+      <option value="dana">Dana</option>
+      <option value="ovo">OVO</option>
+      <option value="gopay">GoPay</option>
+      <option value="bank-transfer">Transfer Bank</option>
+    </select>
+  </div>
+
+  <button class="Checkout-button" onclick="proceedToCheckout()">Lanjutkan ke Pembayaran</button>
+</main>
+
+<footer>
+  <p>&copy; 2025 Toko Cincin Elegan</p>
+</footer>
+
+<script>
+  function displayCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsDiv = document.getElementById('cart-items');
+    const totalPriceSpan = document.getElementById('total-price');
+    let total = 0;
+
+    cartItemsDiv.innerHTML = '';
+
+    if (cart.length === 0) {
+      cartItemsDiv.innerHTML = '<p>Keranjang Anda kosong.</p>';
+      return;
+    }
+
+    cart.forEach(item => {
+      const cartItem = document.createElement('div');
+      cartItem.className = 'cart-item';
+      cartItem.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" width="100">
+        <div class="cart-item-details">
+          <h4>${item.name}</h4>
+          <p>Harga: ${item.price}</p>
+        </div>
+      `;
+      cartItemsDiv.appendChild(cartItem);
+
+      const cleanPrice = parseInt(item.price.replace(/[^\d]/g, ''), 10);
+      total += isNaN(cleanPrice) ? 0 : cleanPrice;
+    });
+
+    totalPriceSpan.textContent = total.toLocaleString('id-ID');
+  }
+
+  function proceedToCheckout() {
+    const name = document.getElementById('name').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const paymentMethod = document.getElementById('payment-method').value;
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    if (cart.length === 0) {
+      alert('Keranjang Anda kosong. Silakan tambahkan produk.');
+      return;
+    }
+
+    if (!name || !address || !phone) {
+      alert('Harap lengkapi semua data pembeli.');
+      return;
+    }
+
+    const invoiceData = {
+      items: cart,
+      invoiceNumber: 'INV-' + Date.now(),
+      orderDate: new Date().toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }),
+      trackingNumber: 'RESI-' + Math.floor(Math.random() * 1000000000),
+      paymentMethod,
+      name,
+      address,
+      phone
+    };
+
+    localStorage.setItem('Invoice', JSON.stringify(invoiceData));
+    localStorage.removeItem('cart');
+    alert('Checkout berhasil! Anda akan diarahkan ke halaman invoice.');
+    window.location.href = 'Invoice.html';
+  }
+
+  // Jalankan saat halaman dibuka
+  displayCart();
+</script>
+
+</body>
+</html>
